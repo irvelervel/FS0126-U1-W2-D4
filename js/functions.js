@@ -142,7 +142,7 @@ sumThemAll(5, 6, 10) // l'argomento 5 diventa num1, l'argomento 6 diventa num2, 
 // generalizziamo con altri esempi
 const sayHelloToAnyone = function (name = 'Utente') {
   const saluto = 'Buongiorno, ' + name + '!'
-  alert(saluto)
+  //   alert(saluto)
 }
 
 sayHelloToAnyone('Stefano')
@@ -159,3 +159,83 @@ const exploreArray = function (arr) {
 
 let nomi = ['Giorgia', 'Stefano', 'Emanuela', 'Alessia']
 exploreArray(nomi)
+
+// insomma, l'utilizzo dei parametri, dei loro valori di default (=) e la suddivisione intelligente
+// delle funzioni ci aiuta a mantenere il nostro codice più stringato, pulito e mantenibile.
+
+// esiste anche un'ultima caratteristica delle funzioni: una funzione può opzionalmente avere un
+// VALORE di RITORNO (keyword "return")
+
+// esempio! immaginate di dover una funzione per dei complessi calcoli matematici:
+
+const complexMath = function (valore) {
+  let risultato = 0
+  // per prima cosa, elevo al quadrato il valore
+  risultato = valore * valore
+  // poi sottrae il numero 36
+  risultato -= 36
+  // infine, dal numero ottenuto calcola il resto della divisione con 5
+  risultato = risultato % 5
+  //   alert(risultato)
+}
+
+complexMath(34)
+complexMath(10)
+complexMath(100340)
+
+// se ora doveste scorporare solo un passaggio di complexMath per riutilizzarlo altrove (ad es. la sottrazione
+// con 36), non potete farlo! la sottrazione con 36 è "incastrata" nella funzione complexMath, non potete
+// riciclarla in futuro nel vostro codice.
+// Proviamo invece ora a SEPARARE gli step in funzioni distinte: in questo modo il codice sarà più mantenibile
+
+const elevaAlQuadrato = function (num) {
+  let risultatino = num * num
+  return risultatino
+}
+
+const sottrae36 = function (num) {
+  let risultatino = num - 36
+  return risultatino
+  console.log('NON STAMPA') // questa riga non verrà mai eseguita perchè dopo il return la funzione termina
+}
+
+const moduloCon5 = function (num) {
+  let risultatino = num % 5
+  return risultatino
+}
+
+const r1 = elevaAlQuadrato(5) // 25
+const r2 = sottrae36(r1)
+const risultatone = moduloCon5(r2)
+
+const lanci = []
+// creiamo una funzione che tira un D6 e me ne ritorna il risultato
+const lanciaDado = function () {
+  const lancio = Math.ceil(Math.random() * 6)
+  alert('È uscito ' + lancio)
+  lanci.push(lancio)
+}
+
+// ora, dopo il lancio del dado, voglio fare due cose: voglio mostrare un alert con il risultato
+// e voglio inserire il risultato in un array di lanci
+
+lanciaDado()
+lanciaDado()
+lanciaDado()
+console.log(lanci)
+
+const lanciaDadoSenzaAlert = function () {
+  const lancio = Math.ceil(Math.random() * 6)
+  lanci.push(lancio)
+}
+
+// facciamo una versione più riutilizzabile senza duplicare il codice
+const lanciaDadoERitornaValore = function () {
+  const lancio = Math.ceil(Math.random() * 6)
+  return lancio // ritornando il valore uscito io posso successivamente decidere cosa farne!
+}
+
+const risultatoLancio = lanciaDadoERitornaValore() // può essere 5, 2, 1, 6
+console.log(risultatoLancio)
+// lo elevo al quadrato
+elevaAlQuadrato(risultatoLancio)
