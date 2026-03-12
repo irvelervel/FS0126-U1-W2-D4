@@ -84,8 +84,78 @@ const checkGlobalCounter = function () {
 globalCounter++
 checkGlobalCounter()
 
-globalCounter += 10
+globalCounter += 10 // globalCounter = globalCounter + 10
 checkGlobalCounter()
 
-globalCounter -= 5
+globalCounter -= 5 // globalCounter = globalCounter - 5
 checkGlobalCounter()
+
+// altri esempi
+const sum = function () {
+  const n1 = 5
+  const n2 = 7
+  const risultato = n1 + n2
+  alert(risultato)
+}
+
+const sum2 = function () {
+  const n1 = 6
+  const n2 = 9
+  const risultato = n1 + n2
+  alert(risultato)
+}
+
+// sum()
+// sum2()
+
+// ottimo, sum e sum2 fanno la somma di due valori prefissati e stampano un popup nel browser.
+// come posso però evitare la loro (ulteriore) duplicazione e cercare di ottenere un'UNICA funzione
+// in grado di sommare QUALSIASI due numeri?
+
+// --> PARAMETRI DI FUNZIONE
+// quando vi accorgete che dovete riciclare una funzione, però siete vincolati dal fatto che quella funzione
+// lavorava con dei DATI SPECIFICI
+// parametrizzare una funzione consiste nel renderla più GENERICA, più RIUTILIZZABILE; una funzione ideale
+// per sommare due numeri NON HA I DUE VALORI inseriti al suo interno! i DATI possono venire forniti all'
+// INVOCAZIONE della funzione!
+
+// 1) la parte 1, cioè la dichiarazione, non saprà mai quali numeri sommare, utilizza dei "placeholders"
+const sumThemAll = function (num1, num2) {
+  // num1 e num2 sono PARAMETRI della funzione sumThemAll()
+  const risultato = num1 + num2
+  console.log('IL RISULTATO È', risultato)
+}
+
+// 2) è all'INVOCAZIONE che date un significato a num1 e num2
+sumThemAll(8, 13)
+sumThemAll(18, 45)
+sumThemAll(476, 3092)
+
+sumThemAll(10) // in questo caso num2 prende il valore "d'ufficio" di undefined!
+sumThemAll(5, 6, 10) // l'argomento 5 diventa num1, l'argomento 6 diventa num2, l'argomento 10 viene ignorato
+
+// NOMENCLATURA: -> num1 e num2 si definiscono PARAMETRI della funzione.
+// NOMENCLATURA: -> 8 e 13, 18 e 45, cioè i DATI dell'invocazione, vengono chiamati ARGOMENTI
+
+// array.pop('cane') // non è che rimuove l'elemento "cane", pop toglie sempre l'ultimo!
+
+// generalizziamo con altri esempi
+const sayHelloToAnyone = function (name = 'Utente') {
+  const saluto = 'Buongiorno, ' + name + '!'
+  alert(saluto)
+}
+
+sayHelloToAnyone('Stefano')
+sayHelloToAnyone('Mario')
+sayHelloToAnyone('Giangiorgio')
+sayHelloToAnyone() // scateniamo il valore di default del parametro name
+
+const exploreArray = function (arr) {
+  for (let i = 0; i < arr.length; i++) {
+    const message = 'Elemento ' + i + ': ' + arr[i] // "Elemento 0: Giorgia"
+    console.log(message)
+  }
+}
+
+let nomi = ['Giorgia', 'Stefano', 'Emanuela', 'Alessia']
+exploreArray(nomi)
